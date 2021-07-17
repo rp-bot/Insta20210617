@@ -1,4 +1,4 @@
-﻿#include "ofApp.h"
+#include "ofApp.h"
 
 //--------------------------------------------------------------
 void ofApp::setup() {
@@ -6,20 +6,20 @@ void ofApp::setup() {
 	ofSetFrameRate(60);
 	ofSetWindowTitle("openFrameworks");
 
-	ofBackground(239);
-	ofSetColor(39);
+	ofBackground(18, 3, 9);
+	ofSetColor(252, 43, 125);
 
 	this->box2d.init();
-	this->box2d.setGravity(0, 50);
+	this->box2d.setGravity(10, 100);
 	this->box2d.createBounds();
 	this->box2d.setFPS(60);
 	this->box2d.registerGrabbing();
 
-	this->radius = 15;
+	this->radius = 10;
 
-	this->image.loadImage("images/lenna.png");
-	this->image.resize(720, 720);
-	this->fbo.allocate(720, 720);
+	this->image.loadImage("YOUR_PATH");
+	this->image.resize(1080, 1350);
+	this->fbo.allocate(1080, 1350);
 }
 
 //--------------------------------------------------------------
@@ -36,7 +36,7 @@ void ofApp::update() {
 
 		vector<glm::vec2> log;
 		this->log_list.push_back(log);
-		this->life_list.push_back(80);
+		this->life_list.push_back(100);
 		this->color_list.push_back(base_color[(int)ofRandom(base_color.size())]);
 	}
 
@@ -70,7 +70,7 @@ void ofApp::update() {
 		if (this->log_list[i].size() < 2) continue;
 
 		if (this->life_list[i] < 15) {
-			
+
 			ofSetColor(this->color_list[i], ofMap(this->life_list[i], 0, 15, 0, 255));
 		}
 		else {
@@ -129,7 +129,7 @@ void ofApp::update() {
 
 	ofDisableBlendMode();
 	this->fbo.end();
-	
+
 	this->image.getTextureReference().setAlphaMask(this->fbo.getTexture());
 	this->image.update();
 }
@@ -144,6 +144,6 @@ void ofApp::draw() {
 //--------------------------------------------------------------
 int main() {
 
-	ofSetupOpenGL(720, 720, OF_WINDOW);
+	ofSetupOpenGL(1080, 1350, OF_WINDOW);
 	ofRunApp(new ofApp());
 }
